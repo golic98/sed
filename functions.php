@@ -2,8 +2,8 @@
 // Configuración de la conexión a la base de datos
 $host = 'localhost';
 $dbname = 'registro_notas';
-$user = 'root';
-$password = '';
+$user = 'eleNano';
+$password = 'kjdoDIN';
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
