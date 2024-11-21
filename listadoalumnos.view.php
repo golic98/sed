@@ -11,14 +11,14 @@ $alumnos = $alumnos->fetchAll();
 <!DOCTYPE html>
 <html>
 <head>
-<title>SED</title>
+<title>Listado de Alumnos | Registro de Notas</title>
     <meta name="description" content="Registro de Notas del Centro Escolar Profesor Lennin" />
     <link rel="stylesheet" href="css/style.css" />
 
 </head>
 <body>
 <div class="header">
-        <h1>Estudiantes registrados</h1>
+        <h1>Registro de Notas - Centro Escolar "Profe Lennin"</h1>
         <h3>Usuario:  <?php echo $_SESSION["username"] ?></h3>
 </div>
 <nav>
@@ -62,6 +62,8 @@ $alumnos = $alumnos->fetchAll();
                 if(isset($_GET['info']))
                     echo '<span class="success">Registro almacenado correctamente!</span>';
                 ?>
+
+
         </div>
 </div>
 
