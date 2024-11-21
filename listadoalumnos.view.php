@@ -18,7 +18,7 @@ $alumnos = $alumnos->fetchAll();
 </head>
 <body>
 <div class="header">
-        <h1>Registro de Notas - Centro Escolar "Profe Lennin"</h1>
+        <h1>Registro de Notas</h1>
         <h3>Usuario:  <?php echo $_SESSION["username"] ?></h3>
 </div>
 <nav>

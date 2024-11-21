@@ -1,37 +1,45 @@
 <?php
+require 'functions.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Recuperar datos enviados desde el formulario
+    $username = htmlentities($_POST['username']);
+    $password = htmlentities($_POST['password']);
 
-    require 'conn/connection.php';
+    try {
+        // Consultar el usuario en la base de datos
+        $stmt = $conn->prepare("SELECT * FROM usuarios WHERE username = :username LIMIT 1");
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $username = htmlspecialchars($_POST['username']);
-    $password = htmlspecialchars($_POST['password']);
-
-    $users = $conn->prepare("select username, password, rol from users where username = '".$username."' and password = '".$password."'");
-    $users->execute();
-    if($users->rowCount() > 0){
-        $user = $users->fetch();
-        if($user['username'] == $username && $user['password'] == $password){
-            //existe el usuario y esa contrase;a
-            session_start();
-            $_SESSION["username"] = $username;
-            $_SESSION["rol"] = $user['rol'];
-            setcookie("activo", 1, time() + 3600);
-            header("Location: inicio.view.php", true, 301);
+        // Verificar si se encontró un usuario
+        if ($user) {
+            // Verificar la contraseña encriptada
+            if (password_verify($password, $user['password'])) {
+                // Iniciar sesión
+                session_start();
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role']; // Asume que hay una columna `role` en la tabla
+                header('Location: inicio.view.php');
+                exit();
+            } else {
+                // Contraseña incorrecta
+                header('Location: index.php?err=1');
+                exit();
+            }
         } else {
-            http_response_code(401);
-            //echo "Credenciales incorrectas";
-            header('location:index.php?err=1');
+            // Usuario no encontrado
+            header('Location: index.php?err=1');
+            exit();
         }
-    }else {
-        http_response_code(401);
-        header('location:index.php?err=1');
+    } catch (PDOException $e) {
+        // Error en la consulta
+        header('Location: index.php?err=1');
+        exit();
     }
 } else {
-    http_response_code(405);
-    echo "SOLO SE PUEDE POST";
-
-    // POST_GET
+    // Si el usuario accede directamente al archivo
+    header('Location: index.php');
+    exit();
 }
-
-
-

@@ -21,14 +21,14 @@ $secciones = $secciones->fetchAll();
 ?>
 <html>
 <head>
-    <title>Notas | Registro de Notas</title>
+    <title>SED</title>
     <meta name="description" content="Registro de Notas del Centro Escolar Profesor Lennin" />
     <link rel="stylesheet" href="css/style.css" />
 
 </head>
 <body>
 <div class="header">
-    <h1>Registro de Notas - Centro Escolar "Profe Lennin"</h1>
+    <h1>Registro de Notas</h1>
     <h3>Usuario:  <?php echo $_SESSION["username"] ?></h3>
 </div>
 <nav>
@@ -164,7 +164,7 @@ $secciones = $secciones->fetchAll();
 </div>
 
 <footer>
-    <p>Derechos reservados &copy; 2020</p>
+    <p></p>
 </footer>
 
 </body>
